@@ -1,3 +1,23 @@
+<?php
+
+#Lấy dữ liệu từ CSDL và đổ ra bảng(phần lặp lại)
+#B1 kết nối với CSDL
+$conn=mysqli_connect('localhost','root','','thicuoiki');
+mysqli_set_charset($conn,"utf8");//Định dang font chữ
+if(!$conn){
+    die("Không thể kết nối, kiểm tra lại các tham số kết nối");
+}
+#Bước 2: Khai báo câu lệnh thực thi và thực hiện truy vấn
+if(isset($_GET['us_id'])) {
+    $us_id = $_GET['us_id'];
+$sql = "SELECT* from user WHERE us_id=$us_id";
+$result = mysqli_query($conn,$sql);
+}
+#Bước 3: Xử lí kết quả trả về
+if(mysqli_num_rows($result)>0){
+    $i=1;
+    while($row = mysqli_fetch_assoc($result)){
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +55,7 @@
         <div class="d-flex flex-column">
 
             <div class="profile">
-                <img src="assets/img/profile-img.jpg" alt="" class="img-fluid rounded-circle">
+                <img src="<?php echo $row['avatar']; ?> " alt="" class="img-fluid rounded-circle">
                 <h1 class="text-light"><a href="index.html">Nguyễn Anh Đức</a></h1>
                 <div class="social-links mt-3 text-center">
                     <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
@@ -48,8 +68,7 @@
 
             <nav class="nav-menu">
                 <ul>
-                    <li class="active"><a href="index.html"><i class="bx bx-home"></i> <span>Home</span></a></li>
-                    <li><a href="#about"><i class="bx bx-user"></i> <span>About</span></a></li>
+                    <li class="active"><a href="index.php"><i class="bx bx-home"></i> <span>Home</span></a></li>
                     <li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
                     <li><a href="#portfolio"><i class="bx bx-book-content"></i> Portfolio</a></li>
                     <li><a href="#services"><i class="bx bx-server"></i> Services</a></li>
@@ -65,11 +84,6 @@
     <!-- End Header -->
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-        <div class="hero-container" data-aos="fade-in">
-            <h1>Nguyễn Anh Đức</h1>
-        </div>
-    </section>
     <!-- End Hero -->
 
     <main id="main">
@@ -85,50 +99,26 @@
 
                 <div class="row">
                     <div class="col-lg-4" data-aos="fade-right">
-                        <img src="assets/img/profile-img.jpg" class="img-fluid" alt="">
+                    <img  style = "width:300px" src="<?php echo $row['avatar']; ?>" alt="">
                     </div>
-                    <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+                    <div class="col-lg-8 pt-4 pt-lg-0 content "data-aos="fade-left">
 
                         <div class="row">
                             <div class="col-lg-6">
-                            <?php
 
-#Lấy dữ liệu từ CSDL và đổ ra bảng(phần lặp lại)
-#B1 kết nối với CSDL
-$conn=mysqli_connect('localhost','root','','thicuoiki');
-mysqli_set_charset($conn,"utf8");//Định dang font chữ
-if(!$conn){
-    die("Không thể kết nối, kiểm tra lại các tham số kết nối");
-}
-#Bước 2: Khai báo câu lệnh thực thi và thực hiện truy vấn
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
-$sql = "SELECT* from users WHERE id=$id";
-$result = mysqli_query($conn,$sql);
-}
-#Bước 3: Xử lí kết quả trả về
-if(mysqli_num_rows($result)>0){
-    $i=1;
-    while($row = mysqli_fetch_assoc($result)){
-?>
                                 <ul>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Tên:</strong><?php echo $row['ten']; ?></li>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Ngày Sinh:</strong><?php echo $row['ngaysinh']; ?></li>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Website:</strong> <?php echo $row['website']; ?></li>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Điện thoại:</strong> <?php echo $row['dienthoai']; ?></li>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Thành Phố:</strong><?php echo $row['thanhpho']; ?></li>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Tuổi:</strong> <?php echo $row['tuoi']; ?></li>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Bằng cấp:</strong> <?php echo $row['bangcap']; ?></li>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Email:</strong> <?php echo $row['email']; ?></li>
-                                    <li><i class="icofont-rounded-right"></i> <strong>Vị trí:</strong> <?php echo $row['vitri']; ?></li>
-                                    <li><button><a href="edit.php?id=<?php echo $row['id']; ?>">Chỉnh sửa</a></button><li>
+                                    <li><i class="icofont-rounded-right"></i> <strong>Họ và tên:</strong><?php echo $row['us_name']; ?></li>
+                                    <li><i class="icofont-rounded-right"></i> <strong>Email:</strong><?php echo $row['us_email']; ?></li>
+                                    <li><i class="icofont-rounded-right"></i> <strong>Số điện thoại:</strong> <?php echo $row['us_phone']; ?></li>
+                                    <li><i class="icofont-rounded-right"></i> <strong>Thành Phố:</strong> <?php echo $row['us_city']; ?></li>
+                                    <li><i class="icofont-rounded-right"></i> <strong>Nghề Nghiệp:</strong><?php echo $row['us_career']; ?></li>
+                                    <li><button><a href="edit.php?us_id=<?php echo $row['us_id']; ?>">Chỉnh sửa</a></button><li>
                                 </ul>
                                 <?php
-                        $i++;
-                        }
-                       }
-
-                    ?>
+                                     $i++;
+                                            }
+                                     }
+                                ?>
                             </div>
                             <div class="col-lg-6">
                                 
@@ -174,6 +164,7 @@ if(mysqli_num_rows($result)>0){
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+    
 
 </body>
 

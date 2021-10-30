@@ -3,9 +3,9 @@ $conn = mysqli_connect('localhost', 'root', '', 'thicuoiki');
 if (!$conn) {
     die("Kết nối thất bại  .Kiểm tra lại các tham số    khai báo kết nối");
 }
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $sql = "SELECT * from users WHERE id='$id' ";
+if(isset($_GET['us_id'])) {
+    $us_id = $_GET['us_id'];
+    $sql = "SELECT * from user WHERE us_id ='$us_id' ";
     $result_2 = mysqli_query($conn, $sql);
 }
 ?>
@@ -28,68 +28,50 @@ if(isset($_GET['id'])) {
             <div class="row">
                 <div class="col-md-12">
                     <h2>Sửa thông tin cá nhân</h2>
-                    <form action="process-edit.php" method="post">
+                    <form action="process-edit.php" method="post" enctype="multipart/form-data">
                         <div class="row mb-3">
                             <label for="txtHoTen" class="col-sm-2 col-form-label">Họ và tên</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtHoTen" name="txtHoTen"value="<?php echo $row['ten']; ?>">
+                            <input type="text" class="form-control" id="txtHoTen" name="txtHoTen"value="<?php echo $row['us_name']; ?>">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="txtChucVu" class="col-sm-2 col-form-label">Ngày Sinh</label>
+                            <label for="txtChucVu" class="col-sm-2 col-form-label">Email</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtChucVu" name="ngaysinh" value = "<?php echo $row['ngaysinh']; ?>">
+                            <input type="email" class="form-control" id="txtChucVu" name="email" value = "<?php echo $row['us_email']; ?>">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="txtMayBan" class="col-sm-2 col-form-label">Website</label>
+                            <label for="txtMayBan" class="col-sm-2 col-form-label">Số điện thoại</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtMayBan" name="website"value = "<?php echo $row['website']; ?>">
+                            <input type="tel" class="form-control" id="txtMayBan" name="phone"value = "<?php echo $row['us_phone']; ?>">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="txtEmail" class="col-sm-2 col-form-label">Điện thoại</label>
+                            <label for="txtEmail" class="col-sm-2 col-form-label">Thành phố</label>
                             <div class="col-sm-10">
-                            <input type="tel" class="form-control" id="txtEmail" name="dienthoai" value = "<?php echo $row['dienthoai']; ?>">
+                            <input type="text" class="form-control" id="txtEmail" name="city" value = "<?php echo $row['us_city']; ?>">
                             </div>
                         </div>
                         
                         <div class="row mb-3">
-                            <label for="txtMobile" class="col-sm-2 col-form-label">Thành Phố</label>
-                            <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtMobile" name="thanhpho" value = "<?php echo $row['thanhpho']; ?>">
+                            <label for="avatar" class="col-sm-2 col-form-label">Nghề Nghiệp</label>
+                            <div class="col-sm-10 ">
+                                <div class="avatar img-fluid" style="width:200px; height:200px">
+                                    <img  id= 'avatar' src="<?php echo $row['avatar']; ?>" alt="" class="img-fluid">
+                                </div>
+                            <input type="file" class="form-control" id="txtavatar" name="file" value = "Chọn ảnh">
                             </div>
                         </div>
 
                         <div class="row mb-3">
-                            <label for="txtMobile" class="col-sm-2 col-form-label">Tuổi</label>
+                            <label for="avatar" class="col-sm-2 col-form-label">Ảnh đại diện</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtMobile" name="tuoi" value = "<?php echo $row['tuoi']; ?>">
+                            <input type="text" class="form-control" id="txtMobile" name="career" value = "<?php echo $row['us_career']; ?>">
                             </div>
                         </div>
-
-                        <div class="row mb-3">
-                            <label for="txtMobile" class="col-sm-2 col-form-label">Bằng cấp</label>
-                            <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtMobile" name="bangcap" value = "<?php echo $row['bangcap']; ?>">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="txtMobile" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                            <input type="email" class="form-control" id="txtMobile" name="email" value = "<?php echo $row['email']; ?>">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="txtMobile" class="col-sm-2 col-form-label">Vị Trí</label>
-                            <div class="col-sm-10">
-                            <input type="text" class="form-control" id="txtMobile" name="vitri" value = "<?php echo $row['vitri']; ?>">
-                            </div>
-                        </div>
-                        <input type="hidden" name="id" class="form-control" id="txtMaNV" value="<?php echo $row['id']; ?>">
+                        <input type="hidden" name="id" class="form-control" id="txtMaNV" value="<?php echo $row['us_id']; ?>">
                         <button type="submit" class="btn btn-primary" name="btnSave">Lưu</button></a>
                     </form>
                 </div>
@@ -110,5 +92,7 @@ if(isset($_GET['id'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
     -->
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="avatar.js"></script>
   </body>
 </html>
