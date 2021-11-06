@@ -1,18 +1,19 @@
 <?php
-
+ session_start();
+ if(!$_SESSION['us_id']){
+    header("location: ../../login.php");
+}
 #Lấy dữ liệu từ CSDL và đổ ra bảng(phần lặp lại)
 #B1 kết nối với CSDL
-$conn=mysqli_connect('localhost','root','','thicuoiki');
+$conn=mysqli_connect('localhost','root','','thicuoiki',3306);
 mysqli_set_charset($conn,"utf8");//Định dang font chữ
 if(!$conn){
     die("Không thể kết nối, kiểm tra lại các tham số kết nối");
 }
-#Bước 2: Khai báo câu lệnh thực thi và thực hiện truy vấn
-if(isset($_GET['us_id'])) {
-    $us_id = $_GET['us_id'];
+#Bước 2: Khai báo câu lệnh thực thi và thực hiện truy vấn{
+    $us_id = $_SESSION['us_id'];
 $sql = "SELECT* from user WHERE us_id=$us_id";
 $result = mysqli_query($conn,$sql);
-}
 #Bước 3: Xử lí kết quả trả về
 if(mysqli_num_rows($result)>0){
     $i=1;
@@ -25,7 +26,7 @@ if(mysqli_num_rows($result)>0){
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Mystery Code - Blog</title>
+    <title>Thông tin cá nhân</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -56,7 +57,7 @@ if(mysqli_num_rows($result)>0){
 
             <div class="profile">
                 <img src="<?php echo $row['avatar']; ?> " alt="" class="img-fluid rounded-circle">
-                <h1 class="text-light"><a href="index.html">Nguyễn Anh Đức</a></h1>
+                <h1 class="text-light"><?php echo $row['us_name']; ?></h1>
                 <div class="social-links mt-3 text-center">
                     <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
                     <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
@@ -66,14 +67,17 @@ if(mysqli_num_rows($result)>0){
                 </div>
             </div>
 
-            <nav class="nav-menu">
+            <nav class="nav-menu">  
                 <ul>
-                    <li class="active"><a href="index.php"><i class="bx bx-home"></i> <span>Home</span></a></li>
-                    <li><a href="#resume"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
-                    <li><a href="#portfolio"><i class="bx bx-book-content"></i> Portfolio</a></li>
-                    <li><a href="#services"><i class="bx bx-server"></i> Services</a></li>
-                    <li><a href="#contact"><i class="bx bx-envelope"></i> Contact</a></li>
+                    <li class="active"><a href="index.php"><i class="bx bx-home"></i> <span>Trang chủ</span></a></li>
+                    <li  class="active"><a href="search fr.php"><i class="bx bx-book-content"></i>Tìm Kiếm Bạn Bè</a></li>
+                    <li  class="active"><a href="kb.php"><i class="bx bx-book-content"></i>Lời mời kết bạn</a></li>
 
+                    <li  class="active"><a href="list fr.php"><i class="bx bx-book-content"></i> Bạn bè</a></li>
+                    <li  class="active"><a href="plan/plan.php?us_id=<?php echo $row['us_id']; ?>"><i class="bx bx-file-blank"></i> <span>Kế hoạch</span></a></li>
+                    <li  class="active"><a href="login.php"><i class="bx bx-envelope"></i>Log Out</a></li>
+                    
+                    
                 </ul>
             </nav>
             <!-- .nav-menu -->
@@ -103,7 +107,7 @@ if(mysqli_num_rows($result)>0){
                     </div>
                     <div class="col-lg-8 pt-4 pt-lg-0 content "data-aos="fade-left">
 
-                        <div class="row">
+                        <div class="row">   
                             <div class="col-lg-6">
 
                                 <ul>
@@ -115,7 +119,7 @@ if(mysqli_num_rows($result)>0){
                                     <li><button><a href="edit.php?us_id=<?php echo $row['us_id']; ?>">Chỉnh sửa</a></button><li>
                                 </ul>
                                 <?php
-                                     $i++;
+                                                 $i++;
                                             }
                                      }
                                 ?>
@@ -136,14 +140,14 @@ if(mysqli_num_rows($result)>0){
 
     <!-- ======= Footer ======= -->
     <footer id="footer">
-        <div class="container">
+        <!-- <div class="container">
             <div class="copyright">
                 &copy; Copyright <strong><span>Mystery Code</span></strong>
             </div>
             <div class="credits">
                 Designed by <a href="#">Mystery Code</a>
             </div>
-        </div>
+        </div> -->
     </footer>
     <!-- End  Footer -->
 
@@ -163,7 +167,7 @@ if(mysqli_num_rows($result)>0){
     <script src="assets/vendor/aos/aos.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="./assets/js/main.js"></script>
     
 
 </body>

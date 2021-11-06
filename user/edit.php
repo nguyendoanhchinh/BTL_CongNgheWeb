@@ -19,7 +19,7 @@ if(isset($_GET['us_id'])) {
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Chỉnh Sửa Thông Tin Cá Nhân</title>
   </head>
   <body>
     <main class="mt-4">
@@ -56,7 +56,7 @@ if(isset($_GET['us_id'])) {
                         </div>
                         
                         <div class="row mb-3">
-                            <label for="avatar" class="col-sm-2 col-form-label">Nghề Nghiệp</label>
+                            <label for="avatar" class="col-sm-2 col-form-label">Ảnh đại diện</label>
                             <div class="col-sm-10 ">
                                 <div class="avatar img-fluid" style="width:200px; height:200px">
                                     <img  id= 'avatar' src="<?php echo $row['avatar']; ?>" alt="" class="img-fluid">
@@ -66,7 +66,7 @@ if(isset($_GET['us_id'])) {
                         </div>
 
                         <div class="row mb-3">
-                            <label for="avatar" class="col-sm-2 col-form-label">Ảnh đại diện</label>
+                            <label for="avatar" class="col-sm-2 col-form-label">Nghề Nghiệp</label>
                             <div class="col-sm-10">
                             <input type="text" class="form-control" id="txtMobile" name="career" value = "<?php echo $row['us_career']; ?>">
                             </div>
@@ -93,6 +93,6 @@ if(isset($_GET['us_id'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
     -->
     <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="avatar.js"></script>
+    <script src="./assets/js/avatar.js"></script>
   </body>
 </html>
