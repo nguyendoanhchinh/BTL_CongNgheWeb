@@ -55,7 +55,7 @@ $us_id = $_SESSION['us_id'];
                         die("Không thể kết nối, kiểm tra lại các tham số kết nối");
                     }
                     #Bước 2: Khai báo câu lệnh thực thi và thực hiện truy vấn
-                    $sql1 = "SELECT * FROM user,plan WHERE user.us_id = plan.id and plan.id= $us_id";
+                    $sql1 = "SELECT * FROM user,plan WHERE user.us_id = plan.us_id and user.us_id= $us_id";
                     $result = mysqli_query($conn,$sql1);
                     #Bước 3: Xử lí kết quả trả về
                     if(mysqli_num_rows($result)>0){
@@ -67,6 +67,8 @@ $us_id = $_SESSION['us_id'];
                               <td><?php echo $row['ngay']; ?></td>
                               <td><?php echo $row['chude']; ?></td>
                               <td><?php echo $row['congviec']; ?></td>
+                              <!-- <td><?php echo $row['us_id']; ?></td> -->
+                           
                               <td><a href="edit-plan.php?id=<?php echo $row['id']; ?>"><i class="fas fa-edit"></i></a></td>
                               <td><a href="delete-plan.php?id=<?php echo $row['id']; ?>"><i class="fas fa-trash"></i></a></td>
                             </tr>

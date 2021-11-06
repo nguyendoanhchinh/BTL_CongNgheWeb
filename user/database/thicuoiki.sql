@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 05, 2021 lúc 03:02 PM
+-- Thời gian đã tạo: Th10 06, 2021 lúc 06:03 AM
 -- Phiên bản máy phục vụ: 10.4.21-MariaDB
--- Phiên bản PHP: 8.0.10
+-- Phiên bản PHP: 8.0.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -64,9 +64,7 @@ CREATE TABLE `friend` (
 --
 
 INSERT INTO `friend` (`fr_id`, `user_add`, `user_confirm`, `status`) VALUES
-(8, 69, 64, 0),
-(9, 69, 64, 0),
-(10, 69, 64, 0);
+(14, 69, 64, 0);
 
 -- --------------------------------------------------------
 
@@ -90,7 +88,8 @@ INSERT INTO `logs` (`id`, `username`, `msg`) VALUES
 (3, '64', 'alo alo'),
 (4, '64', 'alo alo'),
 (5, '69', 'ok'),
-(6, '64', 'ok r');
+(6, '64', 'ok r'),
+(7, '69', 'hahahah');
 
 -- --------------------------------------------------------
 
@@ -102,16 +101,18 @@ CREATE TABLE `plan` (
   `id` int(10) NOT NULL,
   `ngay` date NOT NULL,
   `chude` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `congviec` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `congviec` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `us_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `plan`
 --
 
-INSERT INTO `plan` (`id`, `ngay`, `chude`, `congviec`) VALUES
-(64, '2021-11-23', 'đi choi', 'đồ đạc'),
-(69, '2021-11-20', 'thi cuối kì', 'làm bài tập lớn');
+INSERT INTO `plan` (`id`, `ngay`, `chude`, `congviec`, `us_id`) VALUES
+(3, '2021-11-18', 'đi học', 'đi bay', 64),
+(4, '2021-11-08', 'btl', 'btl', 64),
+(5, '2021-11-18', 'haha', 'haha', 69);
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,6 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`us_id`, `us_name`, `us_email`, `us_phone`, `us_city`, `us_career`, `us_resDate`, `avatar`) VALUES
-(0, 'Nguyễn Anh Đức', 'aducodong@gmail.com', '0987799564', 'Hà Nội', 'Sinh Viên', '2021-10-31', NULL),
 (64, 'Trần Đức Thắng', 'thangtran282001@gmail.com', '123', 'hai phong', '', '2021-10-31', 'assets/img/avatar.png'),
 (69, 'Nguyễn Doanh Chính', '29112001ndc@gmail.com', '0123453xxxx', 'hà nội', 'sinh vien', '2021-11-03', 'assets/img/profile-img.jpg'),
 (70, 'Nguyễn Hải Đình', 'haidinh@gmail.com', '09856456', 'Hà Nội', 'Sinh Viên', '2021-11-05', NULL);
@@ -168,7 +168,8 @@ ALTER TABLE `logs`
 -- Chỉ mục cho bảng `plan`
 --
 ALTER TABLE `plan`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `us_id` (`us_id`);
 
 --
 -- Chỉ mục cho bảng `user`
@@ -185,19 +186,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT cho bảng `friend`
 --
 ALTER TABLE `friend`
-  MODIFY `fr_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `fr_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT cho bảng `logs`
 --
 ALTER TABLE `logs`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT cho bảng `plan`
 --
 ALTER TABLE `plan`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
@@ -220,7 +221,7 @@ ALTER TABLE `friend`
 -- Các ràng buộc cho bảng `plan`
 --
 ALTER TABLE `plan`
-  ADD CONSTRAINT `plan_ibfk_1` FOREIGN KEY (`id`) REFERENCES `user` (`us_id`);
+  ADD CONSTRAINT `plan_ibfk_1` FOREIGN KEY (`us_id`) REFERENCES `user` (`us_id`);
 
 --
 -- Các ràng buộc cho bảng `user`

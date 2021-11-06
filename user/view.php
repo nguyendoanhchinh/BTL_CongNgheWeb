@@ -61,13 +61,11 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="index.html"><i class="fa fa-home"></i> Trang trủ</a></li>
-            <li><a href="./index.php?us_id=1"><i class="fa fa-user"></i> Thông tin cá nhân</a></li>
+            <li class="active"><a href="index.html"><i class="fa fa-home"></i> Admin</a></li>
+           
 
             
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Kế Hoạch <b class="caret"></b></a>
-            </li>
+            
           </ul>
 
           <ul class="nav navbar-nav navbar-right navbar-user">
